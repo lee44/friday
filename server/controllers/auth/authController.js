@@ -8,8 +8,8 @@ dotenv.config();
 export const signup = async (req, res, next) => {
 	const { name, email, password, role } = req.body;
 	try {
-		const user = await prismaClient.user.findFirst({
-			where: { name: name },
+		const user = await prismaClient.user.findUnique({
+			where: { email: email },
 		});
 
 		if (user) {
@@ -17,7 +17,7 @@ export const signup = async (req, res, next) => {
 		}
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
-		const result = await prismaClient.user.create({
+		await prismaClient.user.create({
 			data: {
 				name: name,
 				email: email,
@@ -26,9 +26,7 @@ export const signup = async (req, res, next) => {
 			},
 		});
 
-		const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
-
-		res.send({ success: true, role: user.role, accessToken: accessToken });
+		res.send({ success: true });
 	} catch (error) {
 		next(error);
 	}

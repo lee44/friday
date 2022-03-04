@@ -11,7 +11,7 @@ export const getUsers = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
 	try {
-		const user = await prismaClient.user.findFirst({
+		const user = await prismaClient.user.findUnique({
 			where: { id: parseInt(req.params.id) },
 		});
 
