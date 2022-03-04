@@ -1,4 +1,4 @@
-import { prismaClient } from '../../utils/loadPrismaClient.js';
+import { prismaClient } from '../utils/loadPrismaClient.js';
 
 export const getUsers = async (req, res, next) => {
 	try {

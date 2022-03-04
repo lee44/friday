@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Ensures user can only access route based on permission
 export const verifyRole = (permission) => {
 	return async (req, res, next) => {
 		if (!req?.roles) {

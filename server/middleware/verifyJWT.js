@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
+// Ensures JWT is authentic
 export const verifyJWT = (req, res, next) => {
 	const authHeader = req.headers.authorization || req.headers.Authorization;
 	if (!authHeader?.startsWith('Bearer ')) {
