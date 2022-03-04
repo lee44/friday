@@ -1,13 +1,14 @@
-import pkg from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import { prismaClient } from '../../utils/loadPrismaClient.js';
 
-const { PrismaClient } = pkg;
-const prisma = new PrismaClient();
+dotenv.config();
 
 export const signup = async (req, res, next) => {
 	const { name, email, password, role } = req.body;
 	try {
-		const user = await prisma.user.findFirst({
+		const user = await prismaClient.user.findFirst({
 			where: { name: name },
 		});
 
@@ -16,7 +17,7 @@ export const signup = async (req, res, next) => {
 		}
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
-		await prisma.user.create({
+		const result = await prismaClient.user.create({
 			data: {
 				name: name,
 				email: email,
@@ -24,7 +25,10 @@ export const signup = async (req, res, next) => {
 				role: role,
 			},
 		});
-		res.send({ success: true });
+
+		const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
+
+		res.send({ success: true, role: user.role, accessToken: accessToken });
 	} catch (error) {
 		next(error);
 	}
@@ -38,15 +42,16 @@ export const login = async (req, res, next) => {
 	}
 
 	try {
-		const hashedPassword = await prisma.user.findUnique({
+		const user = await prismaClient.user.findUnique({
 			where: { email: email },
-			select: { password: true },
 		});
 
-		const isMatch = await bcrypt.compare(password, hashedPassword.password);
+		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
 			res.send({ success: false, message: 'Login Failed' });
 		}
-		res.send(hashedPassword);
+		const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
+
+		res.send({ success: true, role: user.role, accessToken: accessToken });
 	} catch (error) {}
 };
