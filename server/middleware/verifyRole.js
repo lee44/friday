@@ -9,12 +9,12 @@ export const verifyRole = (permission) => {
 			return res.sendStatus(401);
 		}
 
-		if (!permission.description === req.role) {
+		if (!permission === req.role) {
 			return res.sendStatus(401);
 		}
 
 		// User can only access his/her profile
-		if (permission.description !== 'Admin' && req.id !== parseInt(req.params.id)) {
+		if (permission !== 'Admin' && req.id !== parseInt(req.params.id)) {
 			return res.sendStatus(401);
 		}
 

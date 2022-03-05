@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
+import { generateAccessToken } from '../utils/generateTokens.js';
 import { prismaClient } from '../utils/loadPrismaClient.js';
 
 dotenv.config();
@@ -21,7 +21,7 @@ export const login = async (req, res, next) => {
 		if (!isMatch) {
 			res.sendStatus(401);
 		}
-		const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
+		const accessToken = generateAccessToken(user);
 
 		res.send({ success: true, role: user.role, accessToken: accessToken });
 	} catch (error) {}
