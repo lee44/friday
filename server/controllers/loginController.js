@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import { generateAccessToken } from '../utils/generateTokens.js';
 import { prismaClient } from '../utils/loadPrismaClient.js';
+import { sendToken } from '../utils/sendToken.js';
 
 dotenv.config();
 
@@ -21,8 +21,7 @@ export const login = async (req, res, next) => {
 		if (!isMatch) {
 			res.sendStatus(401);
 		}
-		const accessToken = generateAccessToken(user);
 
-		res.send({ success: true, role: user.role, accessToken: accessToken });
+		sendToken(user, 200, res);
 	} catch (error) {}
 };
