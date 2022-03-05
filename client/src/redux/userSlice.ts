@@ -14,8 +14,10 @@ export const login = createAsyncThunk("login", async (formData: FormInput) => {
 });
 
 const initialState = {
-	name: "",
-	token: "",
+	user: {
+        name: "",
+	    role: ""
+    },
 	status: "idle",
 	error: null,
 };
@@ -30,8 +32,8 @@ const userSlice = createSlice({
 		});
 		builder.addCase(login.fulfilled, (state, action) => {
 			state.status = "succeeded";
-			state.name = action.payload.username;
-			state.token = action.payload.token;
+			state.user.name = action.payload.name;
+			state.user.role = action.payload.role;
 		});
 		builder.addCase(login.rejected, (state, action) => {
 			state.status = "failed";

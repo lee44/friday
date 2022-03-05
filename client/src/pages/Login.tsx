@@ -28,10 +28,10 @@ const Login = () => {
 		password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters').max(40, 'Password must not exceed 40 characters'),
 	});
 	const { handleSubmit, control } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
-	const onSubmit = (formData: FormInput) => {
+	const onSubmit = async (formData: FormInput) => {
 		try {
-			dispatch(login(formData));
-			// navigate('/');
+			await dispatch(login(formData)).unwrap();
+			navigate('/dashboard');
 		} catch (error) {
 			setError('Invalid email and password');
 			setTimeout(() => {

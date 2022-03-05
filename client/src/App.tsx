@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Unauthorized from './pages/Unauthorized';
+import RequiredAuth from './router/RequiredAuth';
 
 function App() {
 	return (
@@ -18,7 +19,14 @@ function App() {
 				<Route path='unauthorized' element={<Unauthorized />} />
 
 				{/* Private Route */}
-				<Route path='dashboard' element={<Dashboard />} />
+				<Route
+					path='dashboard'
+					element={
+						<RequiredAuth>
+							<Dashboard />
+						</RequiredAuth>
+					}
+				/>
 			</Routes>
 		</div>
 	);
