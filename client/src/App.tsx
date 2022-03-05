@@ -4,7 +4,7 @@ import './App.css';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import Register from './pages/Register';
 import Unauthorized from './pages/Unauthorized';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 				{/* Public Routes */}
 				<Route path='/' element={<Home />} />
 				<Route path='login' element={<Login />} />
-				<Route path='signup' element={<SignUp />} />
+				<Route path='register' element={<Register />} />
 				<Route path='unauthorized' element={<Unauthorized />} />
 
 				{/* Private Route */}
