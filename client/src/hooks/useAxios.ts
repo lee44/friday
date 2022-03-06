@@ -16,7 +16,7 @@ const useAxios = () => {
                     await axios.get(ENDPOINTS.REFRESH_TOKEN,axios_config)
                     return custom_axios(prevRequest)
                 }
-                return Promise.reject(error)
+                return Promise.reject(error.response)
             }
         )
         return () => {

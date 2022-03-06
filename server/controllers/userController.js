@@ -9,7 +9,6 @@ import { prismaClient } from '../utils/loadPrismaClient.js';
  */
 export const updateUser = async (req, res) => {
 	try {
-		console.log(req.params.id, req.body.name);
 		await prismaClient.user.update({
 			where: { id: parseInt(req.params.id) },
 			data: { name: req.body.name },

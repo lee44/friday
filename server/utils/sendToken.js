@@ -1,10 +1,10 @@
 import { generateSignedJWT } from './generateSignedJWT.js';
 
-const signedJWTAccessExpiration = '30min';
+const signedJWTAccessExpiration = '30s';
 const signedJWTRefreshExpiration = '24h';
 
 const accessCookie = {
-	maxAge: 60 * 60 * 1000, // 1 hour
+	maxAge: 5 * 1000, // 1 hour
 	httpOnly: true,
 	secure: false,
 	sameSite: true,
@@ -15,7 +15,7 @@ const refreshCookie = {
 	httpOnly: true,
 	secure: false,
 	sameSite: true,
-	path: '/api/auth/refresh_token',
+	path: '/api/refreshtoken',
 };
 
 export const sendAccessToken = (user, statusCode, res) => {

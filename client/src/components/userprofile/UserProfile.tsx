@@ -29,7 +29,9 @@ const UserProfile = ({ ...props }) => {
 	const onUpdate = async (formData: FormInput) => {
 		try {
 			await custom_axios.put(ENDPOINTS.UPDATE_USER + `/${id}`, formData, axios_config);
-		} catch (error) {}
+		} catch (error) {
+			console.log('Error from UserProfile');
+		}
 	};
 	const onDelete = async () => {
 		try {
