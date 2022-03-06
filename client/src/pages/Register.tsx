@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Grid, Link, Paper, Typography, useTheme } from '@mui/material';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 import { InputText } from '../components/form/InputText';
+import { axios_config } from '../config/axios';
 
 type FormInput = {
 	name: string;
@@ -20,11 +21,6 @@ const defaultValues = {
 	confirmPassword: '123456',
 };
 
-const config: AxiosRequestConfig = {
-	headers: { 'Content-Type': 'application/json' },
-	withCredentials: true,
-};
-
 const Register = () => {
 	const navigate = useNavigate();
 	const validationSchema = Yup.object().shape({
@@ -38,7 +34,7 @@ const Register = () => {
 	const { handleSubmit, control } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: FormInput) => {
 		try {
-			const { data } = await axios.post('/api/auth/register', formData, config);
+			const { data } = await axios.post('/api/auth/register', formData, axios_config);
 			console.log(data);
 
 			navigate('/');

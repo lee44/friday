@@ -5,8 +5,7 @@ import { Controller } from 'react-hook-form';
 export type InputProps = {
 	name: string;
 	control: any;
-	label: string;
-	setValue?: any;
+	label?: string;
 };
 
 export const InputText = ({ name, control, label }: InputProps) => {

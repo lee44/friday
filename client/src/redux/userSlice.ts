@@ -1,21 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
+import { axios_config } from "../config/axios";
 import { ENDPOINTS } from "../config/Endpoints";
 import { FormInput } from "../pages/Login";
 
-const config: AxiosRequestConfig = {
-	headers: { "Content-Type": "application/json" },
-	withCredentials: true,
-};
-
 export const login = createAsyncThunk("login", async (formData: FormInput) => {
-	const response = await axios.post(ENDPOINTS.LOGIN, formData, config);
+	const response = await axios.post(ENDPOINTS.LOGIN, formData, axios_config);
 	return response.data;
 });
 
 const initialState = {
 	user: {
         name: "",
+        email: "",
 	    role: ""
     },
 	status: "idle",
@@ -33,6 +30,7 @@ const userSlice = createSlice({
 		builder.addCase(login.fulfilled, (state, action) => {
 			state.status = "succeeded";
 			state.user.name = action.payload.name;
+			state.user.email = action.payload.email;
 			state.user.role = action.payload.role;
 		});
 		builder.addCase(login.rejected, (state, action) => {

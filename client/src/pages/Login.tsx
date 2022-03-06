@@ -14,7 +14,7 @@ export type FormInput = {
 };
 
 const defaultValues = {
-	email: 'jlee@gmail.com',
+	email: 'kobe@gmail.com',
 	password: '123456',
 };
 
@@ -30,8 +30,12 @@ const Login = () => {
 	const { handleSubmit, control } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: FormInput) => {
 		try {
-			await dispatch(login(formData)).unwrap();
-			navigate('/dashboard');
+			const result = await dispatch(login(formData)).unwrap();
+			if (result.role === 'Admin') {
+				navigate('/dashboard');
+			} else {
+				navigate(`/user/${result.id}`);
+			}
 		} catch (error) {
 			setError('Invalid email and password');
 			setTimeout(() => {
