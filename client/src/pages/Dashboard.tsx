@@ -1,10 +1,10 @@
 import { Container, Grid, useTheme } from '@mui/material';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import UserProfile from '../components/form/UserProfile';
 import NavBar from '../components/navbar/NavBar';
+import UserProfile from '../components/userprofile/UserProfile';
 import { axios_config } from '../config/axios';
 import { ENDPOINTS } from '../config/Endpoints';
+import useAxios from '../hooks/useAxios';
 
 type UserProps = {
 	id: number;
@@ -16,10 +16,11 @@ type UserProps = {
 const Dashboard = () => {
 	const [user, setUser] = useState<UserProps>();
 	const theme = useTheme();
+	const custom_axios = useAxios();
 
 	useEffect(() => {
 		const fetchUser = async () => {
-			const response = await axios.get(ENDPOINTS.FETCHUSERS, axios_config);
+			const response = await custom_axios(ENDPOINTS.FETCHUSERS, axios_config);
 			setUser(response.data);
 		};
 		fetchUser();

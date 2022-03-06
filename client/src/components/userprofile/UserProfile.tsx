@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { axios_config } from '../../config/axios';
 import { ENDPOINTS } from '../../config/Endpoints';
-import { InputText } from './InputText';
+import useAxios from '../../hooks/useAxios';
+import { InputText } from '../form/InputText';
 
 type FormInput = {
 	name: string;
@@ -18,18 +18,20 @@ const defaultValues = {
 
 const UserProfile = ({ ...props }) => {
 	const { id, email, name, role } = props;
+	const custom_axios = useAxios();
+
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required('Name is required').min(2, 'Name must be at least 2 characters').max(20, 'Name must not exceed 20 characters'),
 	});
 	const { handleSubmit, control, reset } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onUpdate = async (formData: FormInput) => {
 		try {
-			await axios.put(ENDPOINTS.UPDATEUSER + `/${id}`, formData, axios_config);
+			await custom_axios.put(ENDPOINTS.UPDATEUSER + `/${id}`, formData, axios_config);
 		} catch (error) {}
 	};
 	const onDelete = async () => {
 		try {
-			await axios.delete(ENDPOINTS.DELETEUSER + `/${id}`, axios_config);
+			await custom_axios.delete(ENDPOINTS.DELETEUSER + `/${id}`, axios_config);
 		} catch (error) {}
 	};
 

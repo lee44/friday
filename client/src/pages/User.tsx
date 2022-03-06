@@ -1,8 +1,8 @@
 import { Container, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import UserProfile from '../components/form/UserProfile';
 import NavBar from '../components/navbar/NavBar';
+import UserProfile from '../components/userprofile/UserProfile';
 import { axios_config } from '../config/axios';
 import { ENDPOINTS } from '../config/Endpoints';
 import useAxios from '../hooks/useAxios';
