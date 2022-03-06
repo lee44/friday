@@ -5,7 +5,7 @@ dotenv.config();
 
 // Ensures JWT is authentic
 export const verifyJWT = (req, res, next) => {
-	const token = req?.cookies?.access_token;
+	const token = req?.cookies?.access_token || req?.cookies?.refresh_token;
 
 	if (!token) {
 		return res.sendStatus(403);
@@ -15,7 +15,7 @@ export const verifyJWT = (req, res, next) => {
 			return res.sendStatus(403);
 		}
 		req.id = decoded.id;
-		req.roles = decoded.role;
+		req.role = decoded.role;
 		next();
 	});
 };

@@ -9,8 +9,9 @@ import { prismaClient } from '../utils/loadPrismaClient.js';
  */
 export const updateUser = async (req, res) => {
 	try {
+		console.log(req.params.id, req.body.name);
 		await prismaClient.user.update({
-			where: { id: req.id },
+			where: { id: parseInt(req.params.id) },
 			data: { name: req.body.name },
 		});
 		return res.sendStatus(200);
@@ -28,7 +29,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
 	try {
 		await prismaClient.user.delete({
-			where: { id: req.id },
+			where: { id: parseInt(req.params.id) },
 		});
 		return res.sendStatus(200);
 	} catch (error) {

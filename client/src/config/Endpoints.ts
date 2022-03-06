@@ -6,6 +6,6 @@ export enum ENDPOINTS {
     REFRESH_TOKEN='/api/refreshtoken',
     FETCH_USER='/api/user',
     FETCH_USERS='/api/users',
-    DELETE_USER='/api/user/delete',
-    UPDATE_USER='/api/user/update'
+    DELETE_USER='/api/user',
+    UPDATE_USER='/api/user'
 }

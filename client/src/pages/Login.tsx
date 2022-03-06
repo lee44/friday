@@ -14,7 +14,7 @@ export type LoginFormInput = {
 };
 
 const defaultValues = {
-	email: 'lebron@gmail.com',
+	email: 'jlee@gmail.com',
 	password: '123456',
 };
 
