@@ -26,7 +26,7 @@ const Dashboard = () => {
 	}, []);
 	return (
 		<>
-			<NavBar></NavBar>
+			<NavBar title={'Admin Dashboard'}></NavBar>
 			<Container
 				fixed
 				sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}

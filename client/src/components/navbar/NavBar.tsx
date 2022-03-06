@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { axios_config } from '../../config/axios';
 import { ENDPOINTS } from '../../config/Endpoints';
 
-const NavBar = () => {
+const NavBar = ({ ...props }) => {
+	const { title } = props;
+
 	const navigate = useNavigate();
 	const handleLogOut = async () => {
 		try {
@@ -23,7 +25,7 @@ const NavBar = () => {
 			<AppBar position='static'>
 				<Toolbar>
 					<Typography variant='h1' component='div' sx={{ flexGrow: 1 }}>
-						News
+						{title}
 					</Typography>
 					<Button color='inherit' onClick={handleLogOut}>
 						Logout
