@@ -42,8 +42,8 @@ const Dashboard = () => {
 				<Grid container spacing={2}>
 					{user?.map((user, index) => {
 						return (
-							<Grid item xs={12} md={6} lg={6} xl={4}>
-								<UserProfile key={index} {...user} />
+							<Grid item xs={12} md={6} lg={6} xl={4} key={index}>
+								<UserProfile {...user} />
 							</Grid>
 						);
 					})}

@@ -1,10 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Grid, Link, Paper, Typography, useTheme } from '@mui/material';
 import axios from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 import { InputText } from '../components/form/InputText';
+import { SelectDropDown } from '../components/form/SelectDropDown';
 import { axios_config } from '../config/axios';
 
 type FormInput = {
@@ -12,33 +14,43 @@ type FormInput = {
 	email: string;
 	password: string;
 	confirmPassword: string;
+	role: string;
 };
 
 const defaultValues = {
-	name: 'jlee',
-	email: 'jlee7772@gmail.com',
+	name: '',
+	email: '@gmail.com',
 	password: '123456',
 	confirmPassword: '123456',
 };
 
 const Register = () => {
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 	const validationSchema = Yup.object().shape({
-		name: Yup.string().required('Name is required').min(6, 'Username must be at least 6 characters').max(20, 'Username must not exceed 20 characters'),
+		name: Yup.string().required('Name is required').min(2, 'Username must be at least 6 characters').max(20, 'Username must not exceed 20 characters'),
 		email: Yup.string().required('Email is required').email('Email is invalid'),
 		password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters').max(40, 'Password must not exceed 40 characters'),
 		confirmPassword: Yup.string()
 			.required('Confirm Password is required')
 			.oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
+		role: Yup.string().required('Role is required'),
 	});
 	const { handleSubmit, control } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: FormInput) => {
 		try {
 			const { data } = await axios.post('/api/auth/register', formData, axios_config);
-			console.log(data);
-
-			navigate('/');
-		} catch (error) {}
+			if (data.role === 'Admin') {
+				navigate('/dashboard');
+			} else {
+				navigate(`/user/${data.id}`);
+			}
+		} catch (error) {
+			setError('Register Failed');
+			setTimeout(() => {
+				setError('');
+			}, 5000);
+		}
 	};
 	const theme = useTheme();
 
@@ -47,7 +59,7 @@ const Register = () => {
 			maxWidth={'xs'}
 			sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}
 		>
-			<Paper variant='outlined' elevation={24}>
+			<Paper variant='outlined'>
 				<Box px={3} py={2}>
 					<Typography variant='h1' align='center' my={2}>
 						Register
@@ -65,6 +77,9 @@ const Register = () => {
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<InputText name='confirmPassword' control={control} label='Confirm Password' />
+						</Grid>
+						<Grid item xs={12}>
+							<SelectDropDown name='role' control={control} />
 						</Grid>
 					</Grid>
 
