@@ -10,14 +10,9 @@ import { axios_config } from '../../config/axios';
 import { ENDPOINTS } from '../../config/Endpoints';
 
 const NavBar = ({ ...props }) => {
-	const { title, register, logIn, logOut } = props;
+	const { title } = props;
 	const navigate = useNavigate();
-	const handleRegister = () => {
-		navigate('/register');
-	};
-	const handleLogIn = () => {
-		navigate('/login');
-	};
+
 	const handleLogOut = async () => {
 		try {
 			await axios.get(ENDPOINTS.LOGOUT, axios_config);
@@ -32,21 +27,10 @@ const NavBar = ({ ...props }) => {
 					<Typography variant='h1' component='div' sx={{ flexGrow: 1 }}>
 						{title}
 					</Typography>
-					{register && (
-						<Button color='secondary' variant='contained' onClick={handleRegister}>
-							Register
-						</Button>
-					)}
-					{logIn && (
-						<Button color='secondary' variant='contained' onClick={handleLogIn} sx={{ mx: 2 }}>
-							Log In
-						</Button>
-					)}
-					{logOut && (
-						<Button color='secondary' variant='contained' onClick={handleLogOut}>
-							Log Out
-						</Button>
-					)}
+
+					<Button color='secondary' variant='contained' onClick={handleLogOut}>
+						Log Out
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>

@@ -76,7 +76,13 @@ const UserProfile = ({ ...props }) => {
 
 						{currentUser?.role === 'Admin' ? (
 							<Grid item xs={6}>
-								<Button variant='contained' color='error' onClick={handleSubmit(onDelete)} sx={{ width: '100%' }}>
+								<Button
+									variant='contained'
+									color='error'
+									onClick={handleSubmit(onDelete)}
+									sx={{ width: '100%' }}
+									disabled={id === currentUser.id ? true : false}
+								>
 									Delete
 								</Button>
 							</Grid>
