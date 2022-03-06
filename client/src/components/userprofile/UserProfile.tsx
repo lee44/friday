@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { axios_config } from '../../config/axios';
 import { ENDPOINTS } from '../../config/Endpoints';
 import useAxios from '../../hooks/useAxios';
+import { useAppSelector } from '../../redux/hooks';
 import { InputText } from '../form/InputText';
 
 type FormInput = {
@@ -18,6 +19,7 @@ const defaultValues = {
 
 const UserProfile = ({ ...props }) => {
 	const { id, email, name, role } = props;
+	const currentUser = useAppSelector((state) => state.user.user);
 	const custom_axios = useAxios();
 
 	const validationSchema = Yup.object().shape({
@@ -66,18 +68,20 @@ const UserProfile = ({ ...props }) => {
 
 				<Box mt={3}>
 					<Grid container spacing={2}>
-						<Grid item xs={role === 'Admin' ? 6 : 12}>
+						<Grid item xs={currentUser?.role === 'Admin' ? 6 : 12}>
 							<Button variant='contained' color='primary' onClick={handleSubmit(onUpdate)} sx={{ width: '100%' }}>
 								Update
 							</Button>
 						</Grid>
 
-						{role === 'Admin' && (
+						{currentUser?.role === 'Admin' ? (
 							<Grid item xs={6}>
 								<Button variant='contained' color='error' onClick={handleSubmit(onDelete)} sx={{ width: '100%' }}>
 									Delete
 								</Button>
 							</Grid>
+						) : (
+							''
 						)}
 					</Grid>
 				</Box>

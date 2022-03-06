@@ -15,14 +15,13 @@ type UserProps = {
 }[];
 
 const Dashboard = () => {
-	const [user, setUser] = useState<UserProps>();
+	const [users, setUser] = useState<UserProps>();
 	const theme = useTheme();
 	const navigate = useNavigate();
-
 	const custom_axios = useAxios();
 
 	useEffect(() => {
-		const fetchUser = async () => {
+		const fetchUsers = async () => {
 			try {
 				const response = await custom_axios(ENDPOINTS.FETCH_USERS, axios_config);
 				setUser(response.data);
@@ -30,7 +29,7 @@ const Dashboard = () => {
 				navigate('/unauthorized');
 			}
 		};
-		fetchUser();
+		fetchUsers();
 	}, []);
 	return (
 		<>
@@ -40,7 +39,7 @@ const Dashboard = () => {
 				sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}
 			>
 				<Grid container spacing={2}>
-					{user?.map((user, index) => {
+					{users?.map((user, index) => {
 						return (
 							<Grid item xs={12} md={6} lg={6} xl={4} key={index}>
 								<UserProfile {...user} />
