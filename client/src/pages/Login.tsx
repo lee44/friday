@@ -49,7 +49,7 @@ const Login = () => {
 			maxWidth={'xs'}
 			sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}
 		>
-			<Paper>
+			<Paper variant='outlined'>
 				<Box px={3} py={2}>
 					<Typography variant='h1' align='center' my={2}>
 						Login

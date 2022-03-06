@@ -1,10 +1,12 @@
-import { Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Typography, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import NavBar from '../components/navbar/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 	const dispatch = useDispatch();
+	const theme = useTheme();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const signIn = async () => {
@@ -15,8 +17,26 @@ const Home = () => {
 	}, []);
 	return (
 		<>
-			<NavBar register={true} logIn={true}></NavBar>
-			<Typography variant={'h1'}>Friday CRUD App</Typography>
+			<Container
+				fixed
+				sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}
+			>
+				<Box p={5}>
+					<Typography variant={'h1'}>Friday CRUD App</Typography>
+					<Grid container spacing={1} my={2}>
+						<Grid item xs={12} sm={6}>
+							<Button color='primary' variant='contained' onClick={() => navigate('/register')} sx={{ width: '100%' }}>
+								Register
+							</Button>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<Button color='primary' variant='contained' onClick={() => navigate('/login')} sx={{ width: '100%' }}>
+								Login
+							</Button>
+						</Grid>
+					</Grid>
+				</Box>
+			</Container>
 		</>
 	);
 };

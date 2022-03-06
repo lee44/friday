@@ -40,10 +40,10 @@ const UserProfile = ({ ...props }) => {
 	}, [name]);
 
 	return (
-		<Paper>
-			<Box px={3} py={2}>
+		<Paper variant='outlined'>
+			<Box px={3} py={5}>
 				<Grid container spacing={2}>
-					<Grid item xs={6}>
+					<Grid item xs={6} justifyContent='center' alignItems='center'>
 						<Typography variant='h3'>Name</Typography>
 					</Grid>
 					<Grid item xs={6}>
@@ -66,17 +66,19 @@ const UserProfile = ({ ...props }) => {
 
 				<Box mt={3}>
 					<Grid container spacing={2}>
-						<Grid item xs={6}>
+						<Grid item xs={role === 'Admin' ? 6 : 12}>
 							<Button variant='contained' color='primary' onClick={handleSubmit(onUpdate)} sx={{ width: '100%' }}>
 								Update
 							</Button>
 						</Grid>
 
-						<Grid item xs={6}>
-							<Button variant='contained' color='error' onClick={handleSubmit(onDelete)} sx={{ width: '100%' }}>
-								Delete
-							</Button>
-						</Grid>
+						{role === 'Admin' && (
+							<Grid item xs={6}>
+								<Button variant='contained' color='error' onClick={handleSubmit(onDelete)} sx={{ width: '100%' }}>
+									Delete
+								</Button>
+							</Grid>
+						)}
 					</Grid>
 				</Box>
 			</Box>
