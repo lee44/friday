@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import { prismaClient } from '../utils/loadPrismaClient.js';
+import { sendToken } from '../utils/sendToken.js';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ export const register = async (req, res, next) => {
 		}
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
-		await prismaClient.user.create({
+		const newUser = await prismaClient.user.create({
 			data: {
 				name: name,
 				email: email,
@@ -25,7 +26,7 @@ export const register = async (req, res, next) => {
 			},
 		});
 
-		res.send({ success: true });
+		sendToken(newUser, 200, res);
 	} catch (error) {
 		next(error);
 	}

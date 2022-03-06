@@ -8,7 +8,7 @@ import { InputText } from '../components/form/InputText';
 import { useAppDispatch } from '../redux/hooks';
 import { login } from '../redux/userSlice';
 
-export type FormInput = {
+export type LoginFormInput = {
 	email: string;
 	password: string;
 };
@@ -27,10 +27,11 @@ const Login = () => {
 		email: Yup.string().required('Email is required').email('Email is invalid'),
 		password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters').max(40, 'Password must not exceed 40 characters'),
 	});
-	const { handleSubmit, control } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
-	const onSubmit = async (formData: FormInput) => {
+	const { handleSubmit, control } = useForm<LoginFormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
+	const onSubmit = async (formData: LoginFormInput) => {
 		try {
 			const result = await dispatch(login(formData)).unwrap();
+			console.log(result);
 			if (result.role === 'Admin') {
 				navigate('/dashboard');
 			} else {

@@ -1,15 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Grid, Link, Paper, Typography, useTheme } from '@mui/material';
-import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 import { InputText } from '../components/form/InputText';
 import { SelectDropDown } from '../components/form/SelectDropDown';
-import { axios_config } from '../config/axios';
+import { useAppDispatch } from '../redux/hooks';
+import { register } from '../redux/userSlice';
 
-type FormInput = {
+export type RegisterFormInput = {
 	name: string;
 	email: string;
 	password: string;
@@ -26,6 +26,7 @@ const defaultValues = {
 
 const Register = () => {
 	const [error, setError] = useState('');
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required('Name is required').min(2, 'Username must be at least 6 characters').max(20, 'Username must not exceed 20 characters'),
@@ -36,14 +37,15 @@ const Register = () => {
 			.oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
 		role: Yup.string().required('Role is required'),
 	});
-	const { handleSubmit, control } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
-	const onSubmit = async (formData: FormInput) => {
+	const { handleSubmit, control } = useForm<RegisterFormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
+	const onSubmit = async (formData: RegisterFormInput) => {
 		try {
-			const { data } = await axios.post('/api/auth/register', formData, axios_config);
-			if (data.role === 'Admin') {
+			const result = await dispatch(register(formData)).unwrap();
+
+			if (result.role === 'Admin') {
 				navigate('/dashboard');
 			} else {
-				navigate(`/user/${data.id}`);
+				navigate(`/user/${result.id}`);
 			}
 		} catch (error) {
 			setError('Register Failed');

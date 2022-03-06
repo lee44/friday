@@ -6,6 +6,6 @@ import { verifyRole } from '../../middleware/verifyRole.js';
 const router = express.Router();
 
 router.get('/users', verifyRole(ROLES.ADMIN), getUsers);
-router.get('/user/:id', verifyRole(ROLES.USER), getUser);
+router.get('/user/:id', verifyRole([ROLES.ADMIN, ROLES.USER]), getUser);
 
 export default router;

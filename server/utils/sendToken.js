@@ -40,5 +40,5 @@ export const sendToken = (user, statusCode, res) => {
 
 	res.cookie('refresh_token', refresh_token, refreshCookie);
 
-	res.status(statusCode).send({ username: user.username, access_token: access_token });
+	res.status(statusCode).send({ id: user.id, name: user.name, role: user.role });
 };
