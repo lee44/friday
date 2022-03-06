@@ -19,12 +19,12 @@ const defaultValues = {
 const UserProfile = ({ ...props }) => {
 	const { id, email, name, role } = props;
 	const validationSchema = Yup.object().shape({
-		name: Yup.string().required('Name is required').min(6, 'Name must be at least 6 characters').max(20, 'Name must not exceed 20 characters'),
+		name: Yup.string().required('Name is required').min(2, 'Name must be at least 2 characters').max(20, 'Name must not exceed 20 characters'),
 	});
-	const { handleSubmit, control, setValue, reset } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
+	const { handleSubmit, control, reset } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: FormInput) => {
 		try {
-			await axios.post(ENDPOINTS.UPDATEUSER, formData, axios_config);
+			await axios.post(ENDPOINTS.UPDATEUSER + `/${id}`, formData, axios_config);
 		} catch (error) {}
 	};
 
