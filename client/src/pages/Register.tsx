@@ -1,13 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Grid, Link, Paper, Typography, useTheme } from '@mui/material';
+import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 import { InputText } from '../components/form/InputText';
 import { SelectDropDown } from '../components/form/SelectDropDown';
+import { axios_config } from '../config/axios';
+import { ENDPOINTS } from '../config/Endpoints';
 import { useAppDispatch } from '../redux/hooks';
-import { register } from '../redux/userSlice';
+import { updateUser } from '../redux/userSlice';
 
 export type RegisterFormInput = {
 	name: string;
@@ -40,12 +43,13 @@ const Register = () => {
 	const { handleSubmit, control } = useForm<RegisterFormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: RegisterFormInput) => {
 		try {
-			const result = await dispatch(register(formData)).unwrap();
+			const { data } = await axios.post(ENDPOINTS.REGISTER, formData, axios_config);
+			dispatch(updateUser(data));
 
-			if (result.role === 'Admin') {
+			if (data.role === 'Admin') {
 				navigate('/dashboard');
 			} else {
-				navigate(`/user/${result.id}`);
+				navigate(`/user/${data.id}`);
 			}
 		} catch (error) {
 			setError('Register Failed');

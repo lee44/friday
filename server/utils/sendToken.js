@@ -1,10 +1,10 @@
 import { generateSignedJWT } from './generateSignedJWT.js';
 
-const signedJWTAccessExpiration = '30s';
+const signedJWTAccessExpiration = '15m';
 const signedJWTRefreshExpiration = '24h';
 
 const accessCookie = {
-	maxAge: 5 * 1000, // 1 hour
+	maxAge: 15 * 60 * 1000, // 1 hour
 	httpOnly: true,
 	secure: false,
 	sameSite: true,
