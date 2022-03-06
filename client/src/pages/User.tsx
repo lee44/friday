@@ -1,6 +1,6 @@
 import { Container, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import NavBar from '../components/navbar/NavBar';
 import UserProfile from '../components/userprofile/UserProfile';
 import { axios_config } from '../config/axios';
@@ -18,19 +18,24 @@ const User = () => {
 	const [user, setUser] = useState<UserProps>();
 	const custom_axios = useAxios();
 	const theme = useTheme();
+	const navigate = useNavigate();
 	let params = useParams();
 
 	useEffect(() => {
 		const fetchUser = async () => {
-			const response = await custom_axios(ENDPOINTS.FETCHUSER + `/${params.id}`, axios_config);
-			setUser(response.data);
+			try {
+				const response = await custom_axios(ENDPOINTS.FETCH_USER + `/${params.id}`, axios_config);
+				setUser(response.data);
+			} catch (error) {
+				navigate('/unauthorized');
+			}
 		};
 		fetchUser();
 	}, []);
 
 	return (
 		<>
-			<NavBar title={'User Dashboard'}></NavBar>
+			<NavBar title={'User Dashboard'} logOut={true}></NavBar>
 
 			<Container
 				maxWidth={'xs'}

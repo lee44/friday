@@ -26,12 +26,12 @@ const UserProfile = ({ ...props }) => {
 	const { handleSubmit, control, reset } = useForm<FormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onUpdate = async (formData: FormInput) => {
 		try {
-			await custom_axios.put(ENDPOINTS.UPDATEUSER + `/${id}`, formData, axios_config);
+			await custom_axios.put(ENDPOINTS.UPDATE_USER + `/${id}`, formData, axios_config);
 		} catch (error) {}
 	};
 	const onDelete = async () => {
 		try {
-			await custom_axios.delete(ENDPOINTS.DELETEUSER + `/${id}`, axios_config);
+			await custom_axios.delete(ENDPOINTS.DELETE_USER + `/${id}`, axios_config);
 		} catch (error) {}
 	};
 

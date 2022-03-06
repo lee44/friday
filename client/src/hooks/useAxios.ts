@@ -4,7 +4,7 @@ import { axios_config } from '../config/axios'
 import { ENDPOINTS } from '../config/Endpoints'
 
 const useAxios = () => {
-    const custom_axios = axios.create({baseURL:ENDPOINTS.BASEURL, headers:{'Content-Type': 'application/json'}, withCredentials:true})
+    const custom_axios = axios.create({baseURL:ENDPOINTS.BASE_URL, headers:{'Content-Type': 'application/json'}, withCredentials:true})
     
     useEffect(()=>{
         const responseIntercept = custom_axios.interceptors.response.use(
@@ -13,7 +13,7 @@ const useAxios = () => {
                 const prevRequest = error?.config;
                 if(error?.response?.status === 403 && !prevRequest?.sent){
                     prevRequest.sent = true;
-                    await axios.get(ENDPOINTS.REFRESHTOKEN,axios_config)
+                    await axios.get(ENDPOINTS.REFRESH_TOKEN,axios_config)
                     return custom_axios(prevRequest)
                 }
                 return Promise.reject(error)

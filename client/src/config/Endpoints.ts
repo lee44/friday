@@ -1,11 +1,11 @@
 export enum ENDPOINTS {
-    BASEURL='http://localhost:3000',
+    BASE_URL='http://localhost:3000',
     LOGIN='/api/auth/login',
     LOGOUT='/api/auth/logout',
     REGISTER='/api/auth/register',
-    REFRESHTOKEN='/api/refreshtoken',
-    FETCHUSER='/api/user',
-    FETCHUSERS='/api/users',
-    DELETEUSER='/api/user/delete',
-    UPDATEUSER='/api/user/update'
+    REFRESH_TOKEN='/api/refreshtoken',
+    FETCH_USER='/api/user',
+    FETCH_USERS='/api/users',
+    DELETE_USER='/api/user/delete',
+    UPDATE_USER='/api/user/update'
 }

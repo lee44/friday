@@ -1,5 +1,6 @@
 import { Container, Grid, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar/NavBar';
 import UserProfile from '../components/userprofile/UserProfile';
 import { axios_config } from '../config/axios';
@@ -16,18 +17,24 @@ type UserProps = {
 const Dashboard = () => {
 	const [user, setUser] = useState<UserProps>();
 	const theme = useTheme();
+	const navigate = useNavigate();
+
 	const custom_axios = useAxios();
 
 	useEffect(() => {
 		const fetchUser = async () => {
-			const response = await custom_axios(ENDPOINTS.FETCHUSERS, axios_config);
-			setUser(response.data);
+			try {
+				const response = await custom_axios(ENDPOINTS.FETCH_USERS, axios_config);
+				setUser(response.data);
+			} catch (error) {
+				navigate('/unauthorized');
+			}
 		};
 		fetchUser();
 	}, []);
 	return (
 		<>
-			<NavBar title={'Admin Dashboard'}></NavBar>
+			<NavBar title={'Admin Dashboard'} logOut={true}></NavBar>
 			<Container
 				fixed
 				sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}

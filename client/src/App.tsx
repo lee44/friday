@@ -4,6 +4,7 @@ import './App.css';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import NoPage from './pages/NoPage';
 import Register from './pages/Register';
 import Unauthorized from './pages/Unauthorized';
 import User from './pages/User';
@@ -18,6 +19,7 @@ function App() {
 				<Route path='login' element={<Login />} />
 				<Route path='register' element={<Register />} />
 				<Route path='unauthorized' element={<Unauthorized />} />
+				<Route path='*' element={<NoPage />} />
 
 				{/* Private Route */}
 				<Route
