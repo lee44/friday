@@ -1,8 +1,9 @@
 import { Container, useTheme } from '@mui/material';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import UserProfile from '../components/form/UserProfile';
+import { axios_config } from '../config/axios';
 import { ENDPOINTS } from '../config/Endpoints';
 
 type UserProps = {
@@ -12,22 +13,14 @@ type UserProps = {
 	role: string;
 };
 
-const config: AxiosRequestConfig = {
-	headers: { 'Content-Type': 'application/json' },
-	withCredentials: true,
-};
-
 const User = () => {
 	let params = useParams();
 	const [user, setUser] = useState<UserProps>();
-	const navigate = useNavigate();
-
-	const onSubmit = () => {};
 	const theme = useTheme();
 
 	useEffect(() => {
 		const fetchUser = async () => {
-			const response = await axios.get(ENDPOINTS.FETCHUSER + `/${params.id}`, config);
+			const response = await axios.get(ENDPOINTS.FETCHUSER + `/${params.id}`, axios_config);
 			setUser(response.data);
 		};
 		fetchUser();

@@ -14,7 +14,7 @@ export type FormInput = {
 };
 
 const defaultValues = {
-	email: 'kobe@gmail.com',
+	email: 'jlee@gmail.com',
 	password: '123456',
 };
 
@@ -67,11 +67,6 @@ const Login = () => {
 							<InputText name='password' control={control} label='Password' />
 						</Grid>
 					</Grid>
-					<Box mt={1}>
-						<Link href='/forgotpassword' underline='hover' color='primary' textAlign='start'>
-							Forgot Password?
-						</Link>
-					</Box>
 					<Box mt={2}>
 						<Button variant='contained' color='primary' onClick={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 							Login
