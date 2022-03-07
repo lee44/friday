@@ -44,7 +44,9 @@ export const deleteUser = async (req, res) => {
  */
 export const getUsers = async (req, res) => {
 	try {
-		const users = await prismaClient.user.findMany();
+		const users = await prismaClient.user.findMany({
+			select: { id: true, name: true, email: true, role: true },
+		});
 		return res.status(200).send(users);
 	} catch (error) {
 		return res.status(404).send('Failed to load users');
@@ -61,6 +63,7 @@ export const getUser = async (req, res) => {
 	try {
 		const user = await prismaClient.user.findUnique({
 			where: { id: parseInt(req.params.id) },
+			select: { id: true, name: true, email: true, role: true },
 		});
 
 		return res.status(200).send(user);
