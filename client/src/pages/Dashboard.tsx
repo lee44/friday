@@ -8,7 +8,7 @@ import { ENDPOINTS } from '../config/Endpoints';
 import useAxios from '../hooks/useAxios';
 import { useAppSelector } from '../redux/hooks';
 
-type UserProps = {
+export type UserProps = {
 	id: number;
 	name: string;
 	email: string;

@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { axios_config } from '../../config/axios';
 import { ENDPOINTS } from '../../config/Endpoints';
 import useAxios from '../../hooks/useAxios';
+import { UserProps } from '../../pages/Dashboard';
 import { useAppSelector } from '../../redux/hooks';
 import { InputText } from '../form/InputText';
 
@@ -36,7 +37,7 @@ const UserProfile = ({ ...props }) => {
 	const onDelete = async () => {
 		try {
 			await custom_axios.delete(ENDPOINTS.DELETE_USER + `/${id}`, axios_config);
-			setUser((list: any) => {
+			setUser((list: UserProps) => {
 				return list.filter((element: { id: any }) => element.id !== id);
 			});
 		} catch (error) {}

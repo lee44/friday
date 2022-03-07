@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 import Register from './pages/Register';
 import Unauthorized from './pages/Unauthorized';
-import User from './pages/User';
 import RequiredAuth from './router/RequiredAuth';
 
 function App() {
@@ -27,14 +26,6 @@ function App() {
 					element={
 						<RequiredAuth>
 							<Dashboard />
-						</RequiredAuth>
-					}
-				/>
-				<Route
-					path='user/:id'
-					element={
-						<RequiredAuth>
-							<User />
 						</RequiredAuth>
 					}
 				/>
