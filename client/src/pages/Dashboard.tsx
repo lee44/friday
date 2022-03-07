@@ -43,9 +43,14 @@ const Dashboard = () => {
 			<NavBar title={'Admin Dashboard'} logOut={true}></NavBar>
 			<Container
 				fixed
-				sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)` }}
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+					minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)`,
+				}}
 			>
-				<Grid container spacing={2}>
+				<Grid container spacing={2} my={2}>
 					{users?.map((user, index) => {
 						return (
 							<Grid item xs={12} md={6} lg={6} xl={4} key={index}>

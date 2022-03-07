@@ -23,13 +23,13 @@ const Home = () => {
 			>
 				<Box p={5}>
 					<Typography variant={'h1'}>Friday CRUD App</Typography>
-					<Grid container spacing={1} my={2}>
-						<Grid item xs={12} sm={6}>
+					<Grid container spacing={1} my={2} justifyContent='center'>
+						<Grid item xs={12} sm={4} md={3}>
 							<Button color='primary' variant='contained' onClick={() => navigate('/register')} sx={{ width: '100%' }}>
 								Register
 							</Button>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={4} md={3}>
 							<Button color='primary' variant='contained' onClick={() => navigate('/login')} sx={{ width: '100%' }}>
 								Login
 							</Button>

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { axios_config } from '../../config/axios';
@@ -8,10 +8,16 @@ import { ENDPOINTS } from '../../config/Endpoints';
 import useAxios from '../../hooks/useAxios';
 import { UserProps } from '../../pages/Dashboard';
 import { useAppSelector } from '../../redux/hooks';
+import { Info } from '../Alerts/Info';
 import { InputText } from '../form/InputText';
 
 type FormInput = {
 	name: string;
+};
+
+type alertInput = {
+	severity: string;
+	message: string;
 };
 
 const defaultValues = {
@@ -20,6 +26,7 @@ const defaultValues = {
 
 const UserProfile = ({ ...props }) => {
 	const { id, email, name, role, setUser } = props;
+	const [alert, setAlert] = useState<alertInput>();
 	const currentUser = useAppSelector((state) => state.user.user);
 	const custom_axios = useAxios();
 
@@ -30,8 +37,9 @@ const UserProfile = ({ ...props }) => {
 	const onUpdate = async (formData: FormInput) => {
 		try {
 			await custom_axios.put(ENDPOINTS.UPDATE_USER + `/${id}`, formData, axios_config);
+			setAlert({ severity: 'success', message: 'Updated Successfully' });
 		} catch (error) {
-			console.log('Error from UserProfile');
+			setAlert({ severity: 'error', message: 'Something went wrong' });
 		}
 	};
 	const onDelete = async () => {
@@ -40,7 +48,10 @@ const UserProfile = ({ ...props }) => {
 			setUser((list: UserProps) => {
 				return list.filter((element: { id: any }) => element.id !== id);
 			});
-		} catch (error) {}
+			setAlert({ severity: 'success', message: 'Deleted Successfully' });
+		} catch (error) {
+			setAlert({ severity: 'error', message: 'Something went wrong' });
+		}
 	};
 
 	useEffect(() => {
@@ -50,6 +61,8 @@ const UserProfile = ({ ...props }) => {
 	return (
 		<Paper variant='outlined'>
 			<Box px={3} py={5}>
+				{alert && <Info alert={alert}></Info>}
+
 				<Grid container spacing={2}>
 					<Grid item xs={6} justifyContent='center' alignItems='center'>
 						<Typography variant='h3'>Name</Typography>

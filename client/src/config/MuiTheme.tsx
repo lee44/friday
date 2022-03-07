@@ -58,5 +58,12 @@ export const customTheme = createTheme({
 				},
 			},
 		},
+		MuiContainer: {
+			styleOverrides: {
+				root: {
+					minWidth: '450px',
+				},
+			},
+		},
 	},
 });

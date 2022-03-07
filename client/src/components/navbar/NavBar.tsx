@@ -21,7 +21,7 @@ const NavBar = ({ ...props }) => {
 	};
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box sx={{ flexGrow: 1, minWidth: '500px' }}>
 			<AppBar position='static'>
 				<Toolbar>
 					<Typography variant='h1' component='div' sx={{ flexGrow: 1 }}>
