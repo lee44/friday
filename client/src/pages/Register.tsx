@@ -46,11 +46,7 @@ const Register = () => {
 			const { data } = await axios.post(ENDPOINTS.REGISTER, formData, axios_config);
 			dispatch(updateUser(data));
 
-			if (data.role === 'Admin') {
-				navigate('/dashboard');
-			} else {
-				navigate(`/user/${data.id}`);
-			}
+			navigate('/dashboard');
 		} catch (error) {
 			setError('Register Failed');
 			setTimeout(() => {

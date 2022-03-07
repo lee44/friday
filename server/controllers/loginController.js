@@ -5,6 +5,9 @@ import { sendToken } from '../utils/sendToken.js';
 
 dotenv.config();
 
+/**
+ * Logs in user and uses bcrypt to compare hashed password to password provided by user
+ */
 export const login = async (req, res, next) => {
 	const { email, password } = req.body;
 

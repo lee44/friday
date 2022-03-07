@@ -3,8 +3,6 @@ import { prismaClient } from '../utils/loadPrismaClient.js';
 /**
  * Updates a user
  * TODO: Might need to check if name exists
- * @param {*} req
- * @param {*} res
  * @returns OK status code
  */
 export const updateUser = async (req, res) => {
@@ -21,8 +19,6 @@ export const updateUser = async (req, res) => {
 
 /**
  * Deletes a user
- * @param {*} req
- * @param {*} res
  * @returns OK status code
  */
 export const deleteUser = async (req, res) => {
@@ -38,8 +34,6 @@ export const deleteUser = async (req, res) => {
 
 /**
  * Fetches all users
- * @param {*} req
- * @param {*} res
  * @returns users
  */
 export const getUsers = async (req, res) => {
@@ -55,8 +49,6 @@ export const getUsers = async (req, res) => {
 
 /**
  * Fetches a user
- * @param {*} req
- * @param {*} res
  * @returns a user
  */
 export const getUser = async (req, res) => {

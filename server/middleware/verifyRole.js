@@ -2,7 +2,10 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Ensures user can only access route based on permission
+/**
+ * * Middleware that ensures user can only access route based on permissions
+ * @param {*} permission array containing roles that have permission to access route
+ */
 export const verifyRole = (permission) => {
 	return async (req, res, next) => {
 		if (!req?.role) {
@@ -13,7 +16,7 @@ export const verifyRole = (permission) => {
 			return res.sendStatus(401);
 		}
 
-		// User can only access his/her profile
+		// Ensures users with User Role can only access their profile
 		if (req.role === 'User' && req.id !== parseInt(req.params.id)) {
 			return res.sendStatus(401);
 		}

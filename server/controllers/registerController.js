@@ -5,6 +5,10 @@ import { sendToken } from '../utils/sendToken.js';
 
 dotenv.config();
 
+/**
+ * Registers user by finding if user exists, if not it will create a new record in database
+ * Hashes password before storing into database
+ */
 export const register = async (req, res, next) => {
 	const { name, email, password, role } = req.body;
 	try {

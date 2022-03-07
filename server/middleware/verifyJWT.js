@@ -3,7 +3,9 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-// Ensures JWT is authentic
+/**
+ * * Middleware that verifies the JWT and passes the decoded user id and role to the next middleware
+ */
 export const verifyJWT = (req, res, next) => {
 	const token = req?.cookies?.access_token ? req?.cookies?.access_token : req?.cookies?.refresh_token;
 
