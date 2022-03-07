@@ -18,7 +18,7 @@ const initialState = {
 	status: "idle",
 	error: null,
 };
-
+// Redux slice that will store user id, name, and role to be used througout the app
 const userSlice = createSlice({
 	name: "user",
 	initialState: initialState,

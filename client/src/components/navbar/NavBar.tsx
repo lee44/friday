@@ -9,6 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { axios_config } from '../../config/axios';
 import { ENDPOINTS } from '../../config/Endpoints';
 
+/**
+ * Navigation bar for the Dashboard page
+ * @param title used to title the page
+ */
 const NavBar = ({ ...props }) => {
 	const { title } = props;
 	const navigate = useNavigate();

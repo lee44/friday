@@ -3,6 +3,10 @@ import { useEffect } from 'react'
 import { axios_config } from '../config/axios'
 import { ENDPOINTS } from '../config/Endpoints'
 
+/**
+ * A custom axios with interceptors that refreshes the access token when server finds them invalid
+ * @returns a custom axios with interceptors
+ */
 const useAxios = () => {
     const custom_axios = axios.create({baseURL:ENDPOINTS.BASE_URL, headers:{'Content-Type': 'application/json'}, withCredentials:true})
     

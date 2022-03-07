@@ -1,20 +1,11 @@
 import { Box, Button, Container, Grid, Typography, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-	const dispatch = useDispatch();
 	const theme = useTheme();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const signIn = async () => {
-			try {
-			} catch (error) {}
-		};
-		signIn();
-	}, []);
 	return (
 		<>
 			<Container

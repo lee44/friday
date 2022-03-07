@@ -7,7 +7,13 @@ export type InputProps = {
 	control: any;
 	label?: string;
 };
-
+/**
+ * Component used in all input fields throughout the app
+ * @param name reference for reack hook form
+ * @param control contains methods for registering the component to reack hook form
+ * @param label a label for the textfield
+ * @returns a wrapped textfield with a controller that communicates with react hook form
+ */
 export const InputText = ({ name, control, label }: InputProps) => {
 	return (
 		<Controller

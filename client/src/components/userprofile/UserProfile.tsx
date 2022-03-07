@@ -24,6 +24,11 @@ const defaultValues = {
 	name: '',
 };
 
+/**
+ * * Component that renders the user information like email, password, etc
+ * * Admin can update or delete user profile but can't delete his/her profile
+ * * User can edit name but not delete his/her profile
+ */
 const UserProfile = ({ ...props }) => {
 	const { id, email, name, role, setUser } = props;
 	const [alert, setAlert] = useState<alertInput>();

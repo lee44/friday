@@ -6,7 +6,13 @@ export type InputProps = {
 	control: any;
 	label?: string;
 };
-
+/**
+ * Component used for selecting user role: Admin or User
+ * @param name reference for reack hook form
+ * @param control contains methods for registering the component to reack hook form
+ * @param label a label for the select field
+ * @returns a wrapped select field with a controller that communicates with react hook form
+ */
 export const SelectDropDown = ({ name, control }: InputProps) => {
 	return (
 		<Controller

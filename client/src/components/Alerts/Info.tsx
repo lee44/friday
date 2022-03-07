@@ -2,6 +2,11 @@ import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
 
+/**
+ * Displays success or error messages when deleting or editing user profiles
+ * @param props requires message and severity to render the alert
+ * @returns a Snackbar alert
+ */
 export const Info = ({ ...props }) => {
 	const [open, setOpen] = useState(true);
 
