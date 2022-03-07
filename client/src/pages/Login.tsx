@@ -31,7 +31,6 @@ const Login = () => {
 	const onSubmit = async (formData: LoginFormInput) => {
 		try {
 			const result = await dispatch(login(formData)).unwrap();
-			console.log(result);
 			if (result.role === 'Admin') {
 				navigate('/dashboard');
 			} else {

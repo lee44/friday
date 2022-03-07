@@ -18,7 +18,7 @@ const defaultValues = {
 };
 
 const UserProfile = ({ ...props }) => {
-	const { id, email, name, role } = props;
+	const { id, email, name, role, setUser } = props;
 	const currentUser = useAppSelector((state) => state.user.user);
 	const custom_axios = useAxios();
 
@@ -36,6 +36,9 @@ const UserProfile = ({ ...props }) => {
 	const onDelete = async () => {
 		try {
 			await custom_axios.delete(ENDPOINTS.DELETE_USER + `/${id}`, axios_config);
+			setUser((list: any) => {
+				return list.filter((element: { id: any }) => element.id !== id);
+			});
 		} catch (error) {}
 	};
 

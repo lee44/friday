@@ -6,6 +6,7 @@ import UserProfile from '../components/userprofile/UserProfile';
 import { axios_config } from '../config/axios';
 import { ENDPOINTS } from '../config/Endpoints';
 import useAxios from '../hooks/useAxios';
+import { useAppSelector } from '../redux/hooks';
 
 type UserProps = {
 	id: number;
@@ -16,6 +17,7 @@ type UserProps = {
 
 const Dashboard = () => {
 	const [users, setUser] = useState<UserProps>();
+	const userSelector = useAppSelector((state) => state.user);
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const custom_axios = useAxios();
@@ -23,7 +25,12 @@ const Dashboard = () => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await custom_axios(ENDPOINTS.FETCH_USERS, axios_config);
+				let response;
+				if (userSelector.user.role === 'Admin') {
+					response = await custom_axios(ENDPOINTS.FETCH_USERS, axios_config);
+				} else {
+					response = await custom_axios(ENDPOINTS.FETCH_USER, axios_config);
+				}
 				setUser(response.data);
 			} catch (error) {
 				navigate('/unauthorized');
@@ -42,7 +49,7 @@ const Dashboard = () => {
 					{users?.map((user, index) => {
 						return (
 							<Grid item xs={12} md={6} lg={6} xl={4} key={index}>
-								<UserProfile {...user} />
+								<UserProfile {...user} setUser={setUser} />
 							</Grid>
 						);
 					})}
