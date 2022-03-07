@@ -19,6 +19,13 @@ export type RegisterFormInput = {
 	confirmPassword: string;
 	role: string;
 };
+const defaultValues = {
+	name: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+};
+
 /**
  * * Register Page that provides input validation and directs user to dashboard upon submission
  */
@@ -35,7 +42,7 @@ const Register = () => {
 			.oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
 		role: Yup.string().required('Role is required'),
 	});
-	const { handleSubmit, control } = useForm<RegisterFormInput>({ resolver: yupResolver(validationSchema) });
+	const { handleSubmit, control } = useForm<RegisterFormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: RegisterFormInput) => {
 		try {
 			const { data } = await axios.post(ENDPOINTS.REGISTER, formData, axios_config);

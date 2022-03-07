@@ -5,6 +5,8 @@
 /server/node_modules
 /client/.gitignore
 /server/.gitignore
+/client/package-lock.json
+/server/package-lock.json
 /client/.pnp
 /client/.pnp.js
 

@@ -13,6 +13,11 @@ export type LoginFormInput = {
 	password: string;
 };
 
+const defaultValues = {
+	email: '',
+	password: '',
+};
+
 const Login = () => {
 	const [error, setError] = useState<string>();
 	const dispatch = useAppDispatch();
@@ -22,7 +27,7 @@ const Login = () => {
 		email: Yup.string().required('Email is required').email('Email is invalid'),
 		password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters').max(40, 'Password must not exceed 40 characters'),
 	});
-	const { handleSubmit, control } = useForm<LoginFormInput>({ resolver: yupResolver(validationSchema) });
+	const { handleSubmit, control } = useForm<LoginFormInput>({ defaultValues: defaultValues, resolver: yupResolver(validationSchema) });
 	const onSubmit = async (formData: LoginFormInput) => {
 		try {
 			await dispatch(login(formData));
