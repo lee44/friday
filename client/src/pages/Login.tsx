@@ -14,7 +14,7 @@ export type LoginFormInput = {
 };
 
 const defaultValues = {
-	email: 'jlee@gmail.com',
+	email: 'kobe@gmail.com',
 	password: '123456',
 };
 
@@ -31,11 +31,8 @@ const Login = () => {
 	const onSubmit = async (formData: LoginFormInput) => {
 		try {
 			const result = await dispatch(login(formData)).unwrap();
-			if (result.role === 'Admin') {
-				navigate('/dashboard');
-			} else {
-				navigate(`/user/${result.id}`);
-			}
+
+			navigate('/dashboard');
 		} catch (error) {
 			setError('Invalid email and password');
 			setTimeout(() => {

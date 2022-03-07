@@ -29,7 +29,7 @@ const Dashboard = () => {
 				if (userSelector.user.role === 'Admin') {
 					response = await custom_axios(ENDPOINTS.FETCH_USERS, axios_config);
 				} else {
-					response = await custom_axios(ENDPOINTS.FETCH_USER, axios_config);
+					response = await custom_axios(ENDPOINTS.FETCH_USER + `/${userSelector.user.id}`, axios_config);
 				}
 				setUser(response.data);
 			} catch (error) {
@@ -40,7 +40,7 @@ const Dashboard = () => {
 	}, []);
 	return (
 		<>
-			<NavBar title={'Admin Dashboard'} logOut={true}></NavBar>
+			<NavBar title={`${userSelector.user.role} Dashboard`} logOut={true}></NavBar>
 			<Container
 				fixed
 				sx={{
@@ -50,7 +50,7 @@ const Dashboard = () => {
 					minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 10px)`,
 				}}
 			>
-				<Grid container spacing={2} my={2}>
+				<Grid container spacing={2} my={2} justifyContent='center'>
 					{users?.map((user, index) => {
 						return (
 							<Grid item xs={12} md={6} lg={6} xl={4} key={index}>

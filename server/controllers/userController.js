@@ -65,8 +65,9 @@ export const getUser = async (req, res) => {
 			where: { id: parseInt(req.params.id) },
 			select: { id: true, name: true, email: true, role: true },
 		});
-
-		return res.status(200).send(user);
+		let userArray = [];
+		userArray.push(user);
+		return res.status(200).send(userArray);
 	} catch (error) {
 		return res.status(404).send('Failed to load user');
 	}
