@@ -9,10 +9,12 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+app.get('/', (req, res) => { res.send('Hello from Express!')
+
 // Routes all authentication routes
 app.use('/api/auth', authRouter);
 
 // Routes any api calls
 app.use('/api', verifyJWT, userRouter);
 
-app.listen(5000, () => console.log(`Server Running on Port: http://localhost:5000`));
+app.listen(process.env.PORT || 5000, () => console.log(`Server Running on Port: http://localhost:5000`));
