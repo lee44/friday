@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.get('/', (req, res) => { res.send('Hello from Express!')
+app.get('/', (req, res) => { res.send('Hello from Express!');
 
 // Routes all authentication routes
 app.use('/api/auth', authRouter);

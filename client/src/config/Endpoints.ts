@@ -1,5 +1,5 @@
 export enum ENDPOINTS {
-    BASE_URL='http://localhost:3000',
+    BASE_URL='https://git.heroku.com/friday-crud.git',
     LOGIN='/api/auth/login',
     LOGOUT='/api/auth/logout',
     REGISTER='/api/auth/register',
