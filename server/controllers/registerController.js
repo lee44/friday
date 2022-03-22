@@ -12,7 +12,7 @@ dotenv.config();
 export const register = async (req, res, next) => {
 	const { name, email, password, role } = req.body;
 	try {
-		const user = await prismaClient.user.findUnique({
+		const user = await prismaClient.user.findFirst({
 			where: { email: email },
 		});
 
