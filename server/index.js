@@ -7,7 +7,18 @@ import userRouter from './routes/user/userRouter.js';
 
 const app = express();
 app.use(express.json());
-app.use(cors({ credentials: true }));
+
+const whitelist = ['https://phenomenal-cupcake-76dcc9.netlify.app'];
+const corsOptions = {
+	credentials: true, // This is important.
+	origin: (origin, callback) => {
+		if (whitelist.includes(origin)) return callback(null, true);
+
+		callback(new Error('Not allowed by CORS'));
+	},
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 // Routes all authentication routes
