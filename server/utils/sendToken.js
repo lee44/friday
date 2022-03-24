@@ -7,16 +7,16 @@ const signedJWTRefreshExpiration = '24h';
 const accessCookie = {
 	maxAge: 15 * 60 * 1000, // 15 minutes
 	httpOnly: true,
-	secure: false,
-	sameSite: true,
+	secure: true,
+	sameSite: 'None',
 };
 
 // cookie config for refresh token
 const refreshCookie = {
 	maxAge: 24 * 60 * 60 * 1000, // 24 hours
 	httpOnly: true,
-	secure: false,
-	sameSite: true,
+	secure: true,
+	sameSite: 'None',
 	path: '/api/refreshtoken',
 };
 
